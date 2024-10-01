@@ -18,7 +18,7 @@ export default function Login() {
       localStorage.setItem("access_token", response.data.access_token);
       localStorage.setItem("userId", response.data.userId);
       console.log(response.data, "<<< handleLogin");
-      navigate("/");
+      navigate("/home");
     } catch (err) {
       console.log(err, "<<< handleLogin");
     }
@@ -45,14 +45,14 @@ export default function Login() {
   // }, []);
 
   return (
-    <div className="flex items-center justify-center h-screen ">
-      <div className="bg-gray-800 rounded-lg shadow-lg max-w-sm w-full">
-        <h3 className="text-lg font-semibold text-center p-4 border-b border-red-600 text-white">
-          Login
+    <div className="flex items-center justify-center h-screen">
+      <div className="bg-gray-800 rounded-lg shadow-lg max-w-sm w-full h-auto py-8">
+        <h3 className="text-3xl font-semibold text-center p-4 border-b border-red-600 text-white">
+          LOGIN
         </h3>
-        <div className="p-6">
-          <form onSubmit={handleLogin}>
-            <div className="mb-4">
+        <div className="p-6 flex flex-col">
+          <form onSubmit={handleLogin} className="flex flex-col space-y-4">
+            <div>
               <label
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-300"
@@ -66,9 +66,10 @@ export default function Login() {
                 placeholder="Enter email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </div>
-            <div className="mb-4">
+            <div>
               <label
                 htmlFor="password"
                 className="block text-sm font-medium text-gray-300"
@@ -82,6 +83,7 @@ export default function Login() {
                 placeholder="Enter password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
             </div>
             <button
@@ -99,9 +101,6 @@ export default function Login() {
             >
               Register
             </button>
-          </div>
-          <div className="flex justify-center mt-3">
-            <div id="buttonDiv"></div>
           </div>
         </div>
       </div>

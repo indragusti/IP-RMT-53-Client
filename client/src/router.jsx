@@ -7,13 +7,13 @@ import Favorite from "./pages/Favorite";
 import UploadImg from "./pages/UploadImg";
 import RootLayout from "./layouts/RootLayout";
 
-// const requireAuth = () => {
-//   const access_token = localStorage.getItem("access_token");
-//   if (!access_token) {
-//     throw redirect("/login");
-//   }
-//   return null;
-// };
+const requireAuth = () => {
+  const access_token = localStorage.getItem("access_token");
+  if (!access_token) {
+    throw redirect("/login");
+  }
+  return null;
+};
 
 const loginLoader = () => {
   const access_token = localStorage.getItem("access_token");
@@ -36,7 +36,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
-    // loader: requireAuth,
+    loader: requireAuth,
     children: [
       {
         path: "home",
