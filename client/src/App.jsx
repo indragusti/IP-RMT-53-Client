@@ -34,7 +34,11 @@
 
 // export default App
 
+import { RouterProvider } from "react-router-dom";
+import { router } from "./router";
+
 function App() {
-  return <div className="bg-blue-500 text-white p-4">Hello, Tailwind!</div>;
+  return <RouterProvider router={router} />;
 }
+
 export default App;
