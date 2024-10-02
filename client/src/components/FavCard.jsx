@@ -9,7 +9,7 @@ export default function FavoriteMonsterCard({ monster }) {
 
   console.log("Monster data:", monster);
 
-  const handleRemoveFromFavorite = async (id) => {
+  const handleRemoveFromFavorite = async (monsterId) => {
     try {
       const token = localStorage.getItem("access_token");
       if (!token) {
@@ -17,11 +17,13 @@ export default function FavoriteMonsterCard({ monster }) {
         return;
       }
 
-      await baseURL.delete(`/favorites/${id}`, {
+      const response = await baseURL.delete(`/favorites/${monsterId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+
+      console.log("Response from remove:", response);
 
       setIsRemoved(true);
     } catch (err) {
@@ -37,22 +39,22 @@ export default function FavoriteMonsterCard({ monster }) {
     <div className="bg-gray-800 text-white rounded-lg shadow-lg overflow-hidden flex flex-col h-full w-full bg-opacity-80">
       <div className="grid place-items-center mt-4">
         <img
-          src={monster.Image?.imageUrl || "https://via.placeholder.com/150"}
+          src={monster.imageUrl || "https://via.placeholder.com/150"}
           alt={monster.name}
-          className="h-40 w-40 border-4 border-red-600"
+          className="h-40 w-40"
         />
       </div>
       <div className="p-4 flex-grow flex flex-col items-center">
         <h5 className="text-xl font-bold text-center">{monster.name}</h5>
         <div className="flex justify-center mt-2 gap-4">
           <button
-            onClick={() => navigate(`/monster/${monster.id}`)}
-            className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition"
+            onClick={() => navigate(`/monster/${monster.monsterId}`)}
+            className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition"
           >
             Detail
           </button>
           <button
-            onClick={() => handleRemoveFromFavorite(monster.id)}
+            onClick={() => handleRemoveFromFavorite(monster.monsterId)}
             className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 transition"
           >
             Remove from Favorite
@@ -65,10 +67,12 @@ export default function FavoriteMonsterCard({ monster }) {
 
 FavoriteMonsterCard.propTypes = {
   monster: PropTypes.exact({
-    id: PropTypes.number.isRequired,
+    userId: PropTypes.number.isRequired,
+    monsterId: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+    species: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    Image: PropTypes.exact({
-      imageUrl: PropTypes.string.isRequired,
-    }).isRequired,
+    description: PropTypes.string.isRequired,
+    imageUrl: PropTypes.string.isRequired,
   }).isRequired,
 };

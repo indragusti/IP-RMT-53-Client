@@ -51,8 +51,8 @@ export default function FavoritePage() {
         <div className="grid grid-cols-4 gap-8 mb-8">
           {favorites.length > 0 ? (
             favorites.map((monster) => (
-              <div key={monster.Monster.id}>
-                <FavoriteMonsterCard monster={monster.Monster} />
+              <div key={monster.id}>
+                <FavoriteMonsterCard monster={monster} />
               </div>
             ))
           ) : (

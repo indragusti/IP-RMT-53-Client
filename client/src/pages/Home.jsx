@@ -6,8 +6,16 @@ import MonsterCard from "../components/Card";
 export default function Home() {
   const [monsters, setMonsters] = useState([]);
   const navigate = useNavigate();
+  // const [search, setSearch] = useState("");
 
   const fetchMonsters = async () => {
+    // const url = new URL(baseURL);
+    // url.pathname = "/monster";
+
+    // if (search) {
+    //   url.searchParams.append("q", search);
+    // }
+
     try {
       const response = await baseURL.get("/monster", {
         headers: {
@@ -65,18 +73,30 @@ export default function Home() {
           MONSTER LIST
         </h2>
 
+        {/* search */}
+        <div className="col-lg-3 col-md-4 mb-3">
+          <input
+            className="form-control"
+            type="search"
+            placeholder="Search Monster"
+            aria-label="Search"
+            // value={search}
+            // onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+
         <div className="grid grid-cols-4 gap-8 mb-8">
           {monsters.map((e) => {
-            console.log(e.Image.imageUrl, "<<< imageUrl");
             return (
               <div key={e.id}>
                 <MonsterCard
                   monster={{
                     id: e.id,
                     name: e.name,
-                    Image: {
-                      imageUrl: e.Image.imageUrl,
-                    },
+                    imageUrl: e.imageUrl,
+                    // Image: {
+                    //   imageUrl: e.Image.imageUrl,
+                    // },
                     // isFavorite: favoriteMonsters.includes(e.id),
                   }}
                 />

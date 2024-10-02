@@ -40,14 +40,7 @@ export default function MonsterCard({ monster }) {
     <div className="bg-gray-800 text-white rounded-lg shadow-lg overflow-hidden flex flex-col h-full w-full bg-opacity-80">
       <div className="grid place-items-center mt-4">
         <img
-          // src={
-          //   monster.Image.imageUrl ||
-          //   "https://via.placeholder.com/150"
-          // }
-          src={
-            monster.Image.imageUrl.split("/revision/")[0] ||
-            "https://via.placeholder.com/150"
-          }
+          src={monster.imageUrl || "https://via.placeholder.com/150"}
           alt={monster.name}
           className="h-40 w-40"
         />
@@ -57,13 +50,13 @@ export default function MonsterCard({ monster }) {
         <div className="flex justify-center mt-2 gap-4">
           <button
             onClick={() => handleDetail(monster.id)}
-            className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 transition"
+            className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition"
           >
             Detail
           </button>
           <button
             onClick={() => handleAddToFavorite(monster.id)}
-            className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition"
+            className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition"
           >
             {isFavorite ? "This is your favorite monster!" : "Add to Favorite"}
           </button>
@@ -77,8 +70,10 @@ MonsterCard.propTypes = {
   monster: PropTypes.exact({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    Image: PropTypes.exact({
-      imageUrl: PropTypes.string.isRequired,
-    }).isRequired,
+    imageUrl: PropTypes.string.isRequired,
+
+    // Image: PropTypes.exact({
+    //   imageUrl: PropTypes.string.isRequired,
+    // }).isRequired,
   }).isRequired,
 };

@@ -41,14 +41,13 @@ export default function Detail() {
       <div className="bg-gray-800 text-white rounded-lg shadow-lg overflow-hidden flex flex-col md:flex-row">
         <div className="md:w-1/3 flex justify-center items-center p-4">
           <img
-            src={monster.Image.imageUrl || "https://via.placeholder.com/150"}
+            src={monster.imageUrl || "https://via.placeholder.com/150"}
             alt={monster.name}
-            className="h-48 w-48 border-4 border-red-600 object-cover"
+            className="h-50 w-50  object-cover"
           />
         </div>
 
         <div className="md:w-2/3 p-4 flex flex-col">
-          {/* New div for monster name */}
           <div className="text-3xl font-bold text-center mb-4">
             {monster.name}
           </div>
