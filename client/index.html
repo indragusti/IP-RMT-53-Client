@@ -9,21 +9,9 @@
         background: url("https://wallpaperaccess.com/full/3385860.jpg") center
           fixed no-repeat;
         background-size: cover;
+        background-blend-mode: darken;
         margin: 0;
-        height: 100vh; /* Pastikan body memenuhi tinggi viewport */
-      }
-      .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5); /* Hitam dengan transparansi 50% */
-        z-index: 1; /* Pastikan overlay berada di atas background */
-      }
-      #root {
-        position: relative; /* Agar isi berada di atas overlay */
-        z-index: 2; /* Pastikan konten berada di atas overlay */
+        height: 100vh;
       }
     </style>
   </head>

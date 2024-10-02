@@ -40,13 +40,20 @@ export default function MonsterCard({ monster }) {
     <div className="bg-gray-800 text-white rounded-lg shadow-lg overflow-hidden flex flex-col h-full w-full bg-opacity-80">
       <div className="grid place-items-center mt-4">
         <img
-          src={monster.Image.imageUrl || "https://via.placeholder.com/150"}
+          // src={
+          //   monster.Image.imageUrl ||
+          //   "https://via.placeholder.com/150"
+          // }
+          src={
+            monster.Image.imageUrl.split("/revision/")[0] ||
+            "https://via.placeholder.com/150"
+          }
           alt={monster.name}
-          className="h-40 w-40 border-4 border-red-600"
+          className="h-40 w-40"
         />
       </div>
       <div className="p-4 flex-grow flex flex-col items-center">
-        <h5 className="text-lg font-bold text-center">{monster.name}</h5>
+        <h5 className="text-xl font-bold text-center">{monster.name}</h5>
         <div className="flex justify-center mt-2 gap-4">
           <button
             onClick={() => handleDetail(monster.id)}
@@ -58,7 +65,7 @@ export default function MonsterCard({ monster }) {
             onClick={() => handleAddToFavorite(monster.id)}
             className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition"
           >
-            {isFavorite ? "Added to Favorites" : "Add to Favorite"}
+            {isFavorite ? "This is your favorite monster!" : "Add to Favorite"}
           </button>
         </div>
       </div>

@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { baseURL } from "../helpers/baseUrl";
 
 export default function Login() {
-  const [email, setEmail] = useState("admin@mail.com");
-  const [password, setPassword] = useState("admin1234");
+  const [email, setEmail] = useState("hunter1@mail.com");
+  const [password, setPassword] = useState("hunter1");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -46,7 +46,7 @@ export default function Login() {
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <div className="bg-gray-800 rounded-lg shadow-lg max-w-sm w-full h-auto py-8">
+      <div className="bg-gray-800 rounded-lg shadow-lg max-w-sm w-full h-auto py-8 bg-opacity-80">
         <h3 className="text-3xl font-semibold text-center p-4 border-b border-red-600 text-white">
           LOGIN
         </h3>

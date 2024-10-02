@@ -28,7 +28,27 @@ export default function Home() {
     fetchMonsters();
   }, []);
 
-  console.log(monsters, "<<< monsters after set");
+  // const [favoriteMonsters, setFavoriteMonsters] = useState([]);
+
+  // const fetchFavorites = async () => {
+  //   try {
+  //     const token = localStorage.getItem("access_token");
+  //     const response = await baseURL.get("/favorites", {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
+
+  //     setFavoriteMonsters(response.data.map((favorite) => favorite.monsterId));
+  //   } catch (err) {
+  //     console.error("Failed to fetch favorites:", err);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchMonsters();
+  //   fetchFavorites();
+  // }, []);
 
   return (
     <>
@@ -41,7 +61,7 @@ export default function Home() {
             See your favorite monsters
           </button>
         </div>
-        <h2 className="text-4xl font-bold mb-8 text-white bg-gray-800 bg-opacity-80 p-4 rounded shadow-md text-center">
+        <h2 className="text-4xl font-bold mb-8 text-white bg-gray-800 p-4 text-center border-b-4 border-red-600 bg-opacity-90 rounded">
           MONSTER LIST
         </h2>
 
@@ -57,6 +77,7 @@ export default function Home() {
                     Image: {
                       imageUrl: e.Image.imageUrl,
                     },
+                    // isFavorite: favoriteMonsters.includes(e.id),
                   }}
                 />
               </div>
