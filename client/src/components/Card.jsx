@@ -11,10 +11,6 @@ export default function MonsterCard({ monster }) {
     navigate(`/monster/${id}`);
   };
 
-  const handleUploadImage = (id) => {
-    navigate(`/monster/${id}/update-img`);
-  };
-
   const handleAddToFavorite = async (id) => {
     try {
       const token = localStorage.getItem("access_token");
@@ -46,12 +42,12 @@ export default function MonsterCard({ monster }) {
         <img
           src={monster.Image.imageUrl || "https://via.placeholder.com/150"}
           alt={monster.name}
-          className="h-40 w-40  border-4 border-red-600"
+          className="h-40 w-40 border-4 border-red-600"
         />
       </div>
-      <div className="p-4 flex-grow">
+      <div className="p-4 flex-grow flex flex-col items-center">
         <h5 className="text-lg font-bold text-center">{monster.name}</h5>
-        <div className="flex justify-between mt-2 gap-4">
+        <div className="flex justify-center mt-2 gap-4">
           <button
             onClick={() => handleDetail(monster.id)}
             className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 transition"
@@ -63,12 +59,6 @@ export default function MonsterCard({ monster }) {
             className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition"
           >
             {isFavorite ? "Added to Favorites" : "Add to Favorite"}
-          </button>
-          <button
-            onClick={() => handleUploadImage(monster.id)}
-            className="bg-gray-600 text-white px-3 py-1 rounded hover:bg-gray-500 transition"
-          >
-            Upload Image
           </button>
         </div>
       </div>

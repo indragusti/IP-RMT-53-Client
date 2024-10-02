@@ -34,7 +34,7 @@ export default function Navbar() {
           </svg> */}
         </button>
         <div className="hidden lg:flex space-x-4" id="navbarNav">
-          <Link className="text-gray-700 hover:text-blue-500" to="/">
+          <Link className="text-gray-700 hover:text-blue-500" to="/home">
             Monster
           </Link>
           <button
