@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { baseURL } from "../helpers/baseUrl";
+import Swal from "sweetalert2";
 
 export default function FavoriteMonsterCard({ monster }) {
   const [isRemoved, setIsRemoved] = useState(false);
@@ -26,8 +27,18 @@ export default function FavoriteMonsterCard({ monster }) {
       console.log("Response from remove:", response);
 
       setIsRemoved(true);
+
+      Swal.fire({
+        icon: "success",
+        title: "Monster removed from favorites",
+      });
     } catch (err) {
       console.error("Failed to remove from favorites:", err);
+      Swal.fire({
+        icon: "error",
+        title: "Failed",
+        text: `${err.response.data.error}`,
+      });
     }
   };
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { baseURL } from "../helpers/baseUrl";
+import Swal from "sweetalert2";
 
 export default function Register() {
   const [username, setUsername] = useState("");
@@ -21,9 +22,18 @@ export default function Register() {
       });
       console.log(data.data, "<<< handleRegister");
       navigate("/login");
+      Swal.fire({
+        icon: "success",
+        title: "Register successful",
+      });
     } catch (err) {
       navigate("/login");
-      console.error(err, "<<< err handleRegister");
+      console.log(err, "<<< err handleRegister");
+      Swal.fire({
+        icon: "error",
+        title: "Failed",
+        text: `${err.response.data.error}`,
+      });
     }
   };
 

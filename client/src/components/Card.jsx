@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { baseURL } from "../helpers/baseUrl";
+import Swal from "sweetalert2";
 
 export default function MonsterCard({ monster }) {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -31,8 +32,17 @@ export default function MonsterCard({ monster }) {
       );
 
       setIsFavorite(true);
+      Swal.fire({
+        icon: "success",
+        title: "Monster added to favorites",
+      });
     } catch (err) {
-      console.error("Failed to add to favorites:", err);
+      console.log(err, "<<< err handleAddToFavorite");
+      Swal.fire({
+        icon: "error",
+        title: "Failed",
+        text: `${err.response.data.error}`,
+      });
     }
   };
 
@@ -56,7 +66,11 @@ export default function MonsterCard({ monster }) {
           </button>
           <button
             onClick={() => handleAddToFavorite(monster.id)}
-            className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition"
+            className={`text-white px-3 py-1 rounded transition ${
+              isFavorite
+                ? "bg-red-600 hover:bg-red-700"
+                : "bg-green-600 hover:bg-green-700"
+            }`}
           >
             {isFavorite ? "Added to favorite" : "Add to Favorite"}
           </button>
@@ -71,9 +85,5 @@ MonsterCard.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     imageUrl: PropTypes.string.isRequired,
-
-    // Image: PropTypes.exact({
-    //   imageUrl: PropTypes.string.isRequired,
-    // }).isRequired,
   }).isRequired,
 };

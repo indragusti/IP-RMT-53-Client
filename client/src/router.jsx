@@ -39,6 +39,11 @@ export const router = createBrowserRouter([
     loader: requireAuth,
     children: [
       {
+        index: true,
+        loader: requireAuth,
+        action: () => redirect("/home"),
+      },
+      {
         path: "home",
         element: <Home />,
       },

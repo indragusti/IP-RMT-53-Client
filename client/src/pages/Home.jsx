@@ -14,7 +14,7 @@ export default function Home() {
 
   const fetchMonsters = async () => {
     try {
-      const response = await baseURL.get("/monster", {
+      const response = await baseURL.get("/monsters", {
         params: {
           "page[number]": page,
           "page[size]": 12,

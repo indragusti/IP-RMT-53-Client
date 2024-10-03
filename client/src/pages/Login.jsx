@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { baseURL } from "../helpers/baseUrl";
+import Swal from "sweetalert2";
 
 export default function Login() {
   const [email, setEmail] = useState("hunter1@mail.com");
@@ -19,8 +20,17 @@ export default function Login() {
       localStorage.setItem("userId", response.data.userId);
       console.log(response.data, "<<< handleLogin");
       navigate("/home");
+      Swal.fire({
+        icon: "success",
+        title: "Login successful",
+      });
     } catch (err) {
       console.log(err, "<<< handleLogin");
+      Swal.fire({
+        icon: "error",
+        title: "Failed",
+        text: `${err.response.data.error}`,
+      });
     }
   };
 

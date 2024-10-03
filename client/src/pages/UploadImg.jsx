@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { baseURL } from "../helpers/baseUrl";
 import { useParams, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export default function UploadImageUrl() {
   const { id } = useParams();
@@ -14,7 +15,7 @@ export default function UploadImageUrl() {
     formData.append("file", imgFile);
 
     try {
-      const response = await baseURL.patch(`/monster/${id}/imgUrl`, formData, {
+      const response = await baseURL.patch(`/monsters/${id}/imgUrl`, formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
           "Content-Type": "multipart/form-data",
@@ -23,8 +24,17 @@ export default function UploadImageUrl() {
 
       console.log(response.data);
       navigate("/home");
+      Swal.fire({
+        icon: "success",
+        title: "New image has been successfully updated",
+      });
     } catch (err) {
       console.error(err, "<<< handleUpdateImageUrl");
+      Swal.fire({
+        icon: "error",
+        title: "Failed",
+        text: `${err.response.data.error}`,
+      });
     }
   };
 

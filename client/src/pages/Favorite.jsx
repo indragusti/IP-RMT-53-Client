@@ -21,7 +21,7 @@ export default function FavoritePage() {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
       });
-      console.log("Fetched favorites:", response.data.data);
+      console.log(response.data.data, "<<< fetchFavorites");
       setFavorites(response.data.data);
     } catch (err) {
       console.log(err, "<<< err fetchFavorites");
