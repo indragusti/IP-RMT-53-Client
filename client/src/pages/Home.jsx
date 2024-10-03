@@ -9,6 +9,7 @@ export default function Home() {
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState("name");
   const [speciesFilter, setSpeciesFilter] = useState("");
+  const [totalPages, setTotalPages] = useState(1);
   const navigate = useNavigate();
 
   const fetchMonsters = async () => {
@@ -28,6 +29,7 @@ export default function Home() {
 
       console.log(response.data.data, "<<< fetchMonsters");
       setMonsters(response.data.data);
+      setTotalPages(response.data.totalPages);
     } catch (err) {
       console.log(err, "<<< err fetchMonsters");
       localStorage.removeItem("access_token");
@@ -45,7 +47,7 @@ export default function Home() {
         <div className="mb-4">
           <button
             onClick={() => navigate("/favorites")}
-            className="bg-blue-500 text-white py-2 px-4 rounded shadow hover:bg-blue-600 transition"
+            className="bg-blue-600 text-white py-2 px-4 rounded shadow hover:bg-blue-700 transition"
           >
             See your favorite monsters
           </button>
@@ -54,61 +56,56 @@ export default function Home() {
           MONSTER LIST
         </h2>
 
-        {/* Search */}
-        <div className="col-lg-3 col-md-4 mb-3">
+        {/* Search, Filter, Sort */}
+        <div className="flex justify-center space-x-20 mb-10">
           <input
-            className="form-control"
+            className="form-control bg-gray-700 text-white border border-gray-600 rounded p-2 w-1/4"
             type="search"
             placeholder="Search Monster"
             aria-label="Search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-        </div>
 
-        {/* Filter by Species */}
-        <div className="mb-4">
           <select
             value={speciesFilter}
             onChange={(e) => setSpeciesFilter(e.target.value)}
-            className="form-control"
+            className="form-control bg-gray-700 text-white border border-gray-600 rounded p-2 w-1/4"
           >
             <option value="">All Species</option>
-            <option value="bird wyvern">bird wyvern</option>
-            <option value="brute wyvern">brute wyvern</option>
-            <option value="elder dragon">elder dragon</option>
-            <option value="fanged beast">fanged beast</option>
-            <option value="fanged wyvern">fanged wyvern</option>
-            <option value="fish">fish</option>
-            <option value="flying wyvern">flying wyvern</option>
-            <option value="herbivore">herbivore</option>
-            <option value="neopteron">neopteron</option>
-            <option value="piscine wyvern">piscine wyvern</option>
-            <option value="relict">relict</option>
-            <option value="wingdrake">wingdrake</option>
+            <option value="bird wyvern">Bird Wyvern</option>
+            <option value="brute wyvern">Brute Wyvern</option>
+            <option value="elder dragon">Elder Dragon</option>
+            <option value="fanged beast">Fanged Beast</option>
+            <option value="fanged wyvern">Fanged Wyvern</option>
+            <option value="fish">Fish</option>
+            <option value="flying wyvern">Flying Wyvern</option>
+            <option value="herbivore">Herbivore</option>
+            <option value="neopteron">Neopteron</option>
+            <option value="piscine wyvern">Piscine Wyvern</option>
+            <option value="relict">Relict</option>
+            <option value="wingdrake">Wingdrake</option>
           </select>
-        </div>
 
-        {/* Sort */}
-        <div className="mb-4">
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value)}
-            className="form-control"
+            className="form-control bg-gray-700 text-white border border-gray-600 rounded p-2 w-1/4"
           >
             <option value="name">Sort by Name (A-Z)</option>
             <option value="-name">Sort by Name (Z-A)</option>
           </select>
         </div>
 
+        {/* Monster Card */}
         <div className="grid grid-cols-4 gap-8 mb-8">
-          {monsters.map((e) => (
-            <div key={e.id}>
+          {monsters.map((monster) => (
+            <div key={monster.id}>
               <MonsterCard
                 monster={{
-                  id: e.id,
-                  name: e.name,
-                  imageUrl: e.imageUrl,
+                  id: monster.id,
+                  name: monster.name,
+                  imageUrl: monster.imageUrl,
                 }}
               />
             </div>
@@ -116,18 +113,21 @@ export default function Home() {
         </div>
 
         {/* Pagination */}
-        <div className="flex justify-between mb-4">
+        <div className="flex justify-center items-center mb-4">
           <button
             onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
             disabled={page === 1}
-            className="bg-gray-500 text-white py-2 px-4 rounded"
+            className="bg-gray-600 text-white py-2 px-4 rounded hover:bg-gray-500 transition mr-2"
           >
             Previous
           </button>
-          <span>Page {page}</span>
+          <span className="text-white">
+            Page {page} / {totalPages}
+          </span>
           <button
-            onClick={() => setPage((prev) => prev + 1)}
-            className="bg-gray-500 text-white py-2 px-4 rounded"
+            onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
+            disabled={page === totalPages}
+            className="bg-gray-600 text-white py-2 px-4 rounded hover:bg-gray-500 transition ml-2"
           >
             Next
           </button>
