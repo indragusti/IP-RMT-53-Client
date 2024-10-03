@@ -5,19 +5,22 @@ import MonsterCard from "../components/Card";
 
 export default function Home() {
   const [monsters, setMonsters] = useState([]);
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const [sort, setSort] = useState("name");
+  const [speciesFilter, setSpeciesFilter] = useState("");
   const navigate = useNavigate();
-  // const [search, setSearch] = useState("");
 
   const fetchMonsters = async () => {
-    // const url = new URL(baseURL);
-    // url.pathname = "/monster";
-
-    // if (search) {
-    //   url.searchParams.append("q", search);
-    // }
-
     try {
       const response = await baseURL.get("/monster", {
+        params: {
+          "page[number]": page,
+          "page[size]": 12,
+          q: search || undefined,
+          sort: sort || undefined,
+          "filter[species]": speciesFilter || undefined,
+        },
         headers: {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
@@ -34,29 +37,7 @@ export default function Home() {
 
   useEffect(() => {
     fetchMonsters();
-  }, []);
-
-  // const [favoriteMonsters, setFavoriteMonsters] = useState([]);
-
-  // const fetchFavorites = async () => {
-  //   try {
-  //     const token = localStorage.getItem("access_token");
-  //     const response = await baseURL.get("/favorites", {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-
-  //     setFavoriteMonsters(response.data.map((favorite) => favorite.monsterId));
-  //   } catch (err) {
-  //     console.error("Failed to fetch favorites:", err);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchMonsters();
-  //   fetchFavorites();
-  // }, []);
+  }, [search, page, sort, speciesFilter]);
 
   return (
     <>
@@ -73,36 +54,83 @@ export default function Home() {
           MONSTER LIST
         </h2>
 
-        {/* search */}
+        {/* Search */}
         <div className="col-lg-3 col-md-4 mb-3">
           <input
             className="form-control"
             type="search"
             placeholder="Search Monster"
             aria-label="Search"
-            // value={search}
-            // onChange={(e) => setSearch(e.target.value)}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
           />
         </div>
 
+        {/* Filter by Species */}
+        <div className="mb-4">
+          <select
+            value={speciesFilter}
+            onChange={(e) => setSpeciesFilter(e.target.value)}
+            className="form-control"
+          >
+            <option value="">All Species</option>
+            <option value="bird wyvern">bird wyvern</option>
+            <option value="brute wyvern">brute wyvern</option>
+            <option value="elder dragon">elder dragon</option>
+            <option value="fanged beast">fanged beast</option>
+            <option value="fanged wyvern">fanged wyvern</option>
+            <option value="fish">fish</option>
+            <option value="flying wyvern">flying wyvern</option>
+            <option value="herbivore">herbivore</option>
+            <option value="neopteron">neopteron</option>
+            <option value="piscine wyvern">piscine wyvern</option>
+            <option value="relict">relict</option>
+            <option value="wingdrake">wingdrake</option>
+          </select>
+        </div>
+
+        {/* Sort */}
+        <div className="mb-4">
+          <select
+            value={sort}
+            onChange={(e) => setSort(e.target.value)}
+            className="form-control"
+          >
+            <option value="name">Sort by Name (A-Z)</option>
+            <option value="-name">Sort by Name (Z-A)</option>
+          </select>
+        </div>
+
         <div className="grid grid-cols-4 gap-8 mb-8">
-          {monsters.map((e) => {
-            return (
-              <div key={e.id}>
-                <MonsterCard
-                  monster={{
-                    id: e.id,
-                    name: e.name,
-                    imageUrl: e.imageUrl,
-                    // Image: {
-                    //   imageUrl: e.Image.imageUrl,
-                    // },
-                    // isFavorite: favoriteMonsters.includes(e.id),
-                  }}
-                />
-              </div>
-            );
-          })}
+          {monsters.map((e) => (
+            <div key={e.id}>
+              <MonsterCard
+                monster={{
+                  id: e.id,
+                  name: e.name,
+                  imageUrl: e.imageUrl,
+                }}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Pagination */}
+        <div className="flex justify-between mb-4">
+          <button
+            onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+            disabled={page === 1}
+            className="bg-gray-500 text-white py-2 px-4 rounded"
+          >
+            Previous
+          </button>
+          <span>Page {page}</span>
+          <button
+            onClick={() => setPage((prev) => prev + 1)}
+            className="bg-gray-500 text-white py-2 px-4 rounded"
+          >
+            Next
+          </button>
         </div>
       </div>
     </>

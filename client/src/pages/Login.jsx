@@ -24,25 +24,32 @@ export default function Login() {
     }
   };
 
-  // function handleCredentialResponse(response) {
-  //   console.log("Encoded JWT ID token: " + response.credential);
-  // }
-  // const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+  async function handleCredentialResponse(response) {
+    console.log("Encoded JWT ID token: " + response.credential);
 
-  // useEffect(() => {
-  //   window.google.accounts.id.initialize({
-  //     client_id: googleClientId,
-  //     callback: handleCredentialResponse,
-  //   });
-  //   window.google.accounts.id.renderButton(
-  //     document.getElementById("buttonDiv"),
-  //     {
-  //       theme: "outline",
-  //       size: "large",
-  //     }
-  //   );
-  //   // google.accounts.id.prompt();
-  // }, []);
+    try {
+      const { data } = await baseURL.post("/login/google", {
+        googleToken: response.credential,
+      });
+      localStorage.setItem("access_token", data.access_token);
+      navigate("/home");
+    } catch (err) {
+      console.log(err, "<<< err google login");
+    }
+  }
+
+  useEffect(() => {
+    window.google.accounts.id.initialize({
+      client_id: import.meta.env.VITE_CLIENT_ID,
+      // client_id: import.meta.env.CLIENT_ID,
+      callback: handleCredentialResponse,
+    });
+    window.google.accounts.id.renderButton(
+      document.getElementById("buttonDiv"),
+      { theme: "outline", size: "large" }
+    );
+    window.google.accounts.id.prompt();
+  }, []);
 
   return (
     <div className="flex items-center justify-center h-screen">
@@ -102,6 +109,7 @@ export default function Login() {
               Register
             </button>
           </div>
+          <div id="buttonDiv" className="mt-10"></div>
         </div>
       </div>
     </div>
