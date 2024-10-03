@@ -58,7 +58,7 @@ export default function MonsterCard({ monster }) {
             onClick={() => handleAddToFavorite(monster.id)}
             className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition"
           >
-            {isFavorite ? "This is your favorite monster!" : "Add to Favorite"}
+            {isFavorite ? "Added to favorite" : "Add to Favorite"}
           </button>
         </div>
       </div>

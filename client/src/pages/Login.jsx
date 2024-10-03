@@ -109,7 +109,7 @@ export default function Login() {
               Register
             </button>
           </div>
-          <div id="buttonDiv" className="mt-10"></div>
+          <div id="buttonDiv" className="mt-10 flex justify-center"></div>
         </div>
       </div>
     </div>
