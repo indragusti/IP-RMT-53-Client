@@ -6,6 +6,7 @@ import Detail from "./pages/Detail";
 import Favorite from "./pages/Favorite";
 import UploadImg from "./pages/UploadImg";
 import RootLayout from "./layouts/RootLayout";
+import Locations from "./pages/Location";
 
 const requireAuth = () => {
   const access_token = localStorage.getItem("access_token");
@@ -58,6 +59,10 @@ export const router = createBrowserRouter([
       {
         path: "monster/:id/update-img",
         element: <UploadImg />,
+      },
+      {
+        path: "location",
+        element: <Locations />,
       },
     ],
   },

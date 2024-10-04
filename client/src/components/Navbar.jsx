@@ -19,6 +19,9 @@ export default function Navbar() {
           aria-label="Toggle navigation"
         ></button>
         <div className="hidden lg:flex space-x-4" id="navbarNav">
+          <Link className="text-white hover:text-red-300" to="/location">
+            Location
+          </Link>
           <Link className="text-white hover:text-red-300" to="/home">
             Monster
           </Link>
