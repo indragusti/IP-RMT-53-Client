@@ -1,10 +1,17 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import FavoriteMonsterCard from "../components/FavCard";
 import { baseURL } from "../helpers/baseUrl";
 
+// ini redux
+import { useDispatch, useSelector } from "react-redux";
+import { setFavorites } from "../features/userFavSlice";
+//
+
 export default function FavoritePage() {
-  const [favorites, setFavorites] = useState([]);
+  // start redux ==============================================================
+  const favorites = useSelector((store) => store.favorite.favorites);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const fetchFavorites = async () => {
@@ -21,17 +28,51 @@ export default function FavoritePage() {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
       });
+
+      const fetchedFavorites = response.data.data;
+      console.log("Fetched Favorites:", fetchedFavorites);
+
       console.log(response.data.data, "<<< fetchFavorites");
-      setFavorites(response.data.data);
+      dispatch(setFavorites(response.data.data));
     } catch (err) {
       console.log(err, "<<< err fetchFavorites");
       navigate("/login");
     }
   };
-
   useEffect(() => {
     fetchFavorites();
   }, []);
+
+  // start original =============================================================
+  // const [favorites, setFavorites] = useState([]);
+  // const navigate = useNavigate();
+
+  // const fetchFavorites = async () => {
+  //   try {
+  //     const userId = localStorage.getItem("userId");
+  //     if (!userId) {
+  //       navigate("/login");
+  //       return;
+  //     }
+
+  //     const response = await baseURL.get("/favorites", {
+  //       params: { userId },
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+  //       },
+  //     });
+  //     console.log(response.data.data, "<<< fetchFavorites");
+  //     setFavorites(response.data.data);
+  //   } catch (err) {
+  //     console.log(err, "<<< err fetchFavorites");
+  //     navigate("/login");
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchFavorites();
+  // }, []);
+  // end original =============================================================
 
   return (
     <>
