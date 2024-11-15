@@ -80,3 +80,74 @@ export default function Detail() {
 }
 
 
+
+Project Console: https://console.firebase.google.com/project/project-individual-indra/overview
+Hosting URL: https://project-individual-indra.web.app
+
+===============================================================================
+
+Indra
+
+Deployment:
+client: https://project-individual-indra.web.app/
+server: https://wolf.indragusti.my.id
+
+Repository link:
+server: https://github.com/indragusti/IP-RMT-53-Server
+client: https://github.com/indragusti/IP-RMT-53-Client
+
+Login account admin: 
+email: admin@mail.com
+password: admin1234
+
+Login account user: 
+email: hunter1@mail.com
+password: hunter1
+
+List feature yang berhasil implementasi:
+- login-register & logout user
+- update dan upload gambar ke cloudinary
+- search, pagination, sort, filter di halaman home
+
+List requirement yang dipenuhi:
+- CRUD
+- testing coverage: 53.01%
+- google sign in
+- api-docs
+- implementasi redux di user favorite monster
+
+List 3rd Party API yang digunakan: 
+- https://mhw-db.com/monsters
+- cloudinary
+- GeminiAI
+
+===============================================================================
+
+client: https://mymovielist.khanz1.dev/
+server: https://api.khanz1.dev/
+
+repository link: 
+server : https://github.com/khanz1/IP-RMT48/Server
+client : https://github.com/khanz1/IP-RMT48/Client
+
+Login Account (kalo ada)
+email: assistance.xavier@gmail.com
+password: 123456
+
+
+List feature yang berhasil implementasi
+Login dan register untuk user
+Upgrade account dengan pembayaran menggunakan midtrans, dan setelah berhasil akan kirim email notifikasi
+Handle pagination di home page menggunakan infinite scrolll
+Ubah poster movie via upload
+
+List requirement yang dipenuhi
+CRUD cart
+Testing coverage: 86.08% (lihat yang All files - Stmts)
+Google sign in
+Api docs sesuai dengan server
+Implementasi redux untuk fetch user dan movies
+
+Daftar 3rd party api yang digunakan
+TMDB Api (https://developer.themoviedb.org/reference/intro/getting-started)
+Midtrans API (https://docs.midtrans.com/)
